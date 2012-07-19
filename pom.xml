@@ -1,0 +1,83 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<modelVersion>4.0.0</modelVersion>
+<groupId>org.opengeo.geoscript</groupId>
+<artifactId>geoscript</artifactId>
+<packaging>jar</packaging>
+<version>0.0.1-SNAPSHOT</version>
+
+<properties>
+  <gt.version>8-SNAPSHOT</gt.version>
+</properties>
+
+<repositories>
+  <repository>
+    <id>opengeo</id>
+    <name>OpenGeo Maven Repository</name>
+    <url>http://repo.opengeo.org/</url>
+    <snapshots>
+      <enabled>true</enabled>
+    </snapshots>
+  </repository>
+  <repository>
+    <id>codehaus</id>
+    <name>Codehaus Repository</name>
+    <url>http://repository.codehaus.org</url>
+    <snapshots>
+      <enabled>false</enabled>
+    </snapshots>
+  </repository>
+</repositories>
+
+<dependencies>
+  <dependency>
+    <groupId>org.geotools</groupId>
+    <artifactId>gt-main</artifactId>
+    <version>${gt.version}</version>
+  </dependency>
+  <dependency>
+    <groupId>org.geotools</groupId>
+    <artifactId>gt-epsg-hsql</artifactId>
+    <version>${gt.version}</version>
+  </dependency>
+</dependencies>
+
+<build>
+  <plugins>
+    <plugin>
+      <artifactId>maven-dependency-plugin</artifactId>
+      <configuration>
+        <outputDirectory>${basedir}/lib/geotools</outputDirectory>
+      </configuration>
+      <executions>
+        <execution>
+          <id>install</id>
+          <phase>install</phase>
+          <goals>
+            <goal>copy-dependencies</goal>
+          </goals>
+        </execution>
+        <execution>
+          <id>initialize</id>
+          <phase>initialize</phase>
+          <configuration>
+            <tasks>
+              <mkdir dir="${basedir}/lib/geotools" />
+            </tasks>
+          </configuration>
+        </execution>
+        <execution>
+          <id>clean</id>
+          <phase>clean</phase>
+          <configuration>
+            <tasks>
+              <delete dir="${basedir}/lib/geotools" />
+            </tasks>
+          </configuration>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
+
+</project>

@@ -1,0 +1,7 @@
+*.gem
+.bundle
+Gemfile.lock
+.rbenv-version
+.DS_Store
+target/
+lib/geotools/

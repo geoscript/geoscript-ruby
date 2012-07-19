@@ -1,0 +1,6 @@
+require 'geom/geom'
+require 'geom/point'
+require 'geom/bounds'
+require 'geom/linestring'
+require 'geom/linearring'
+require 'geom/polygon'
