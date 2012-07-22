@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
 
   gem.authors = ['Scooter Wadsworth']
   gem.email = ['scooterwadsworth@gmail.com']
-  gem.homepage = 'http://github.com/scooterw/geoscript-ruby'
+  gem.homepage = 'https://github.com/scooterw/geoscript-ruby'
   
   gem.files = Dir['README.md', 'lib/**/*', 'spec/support/**/*']
   gem.require_paths = ['lib']

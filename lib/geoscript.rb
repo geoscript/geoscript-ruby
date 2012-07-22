@@ -9,5 +9,6 @@ Dir.entries(File.join(File.expand_path(File.dirname(__FILE__)), 'geotools')).sor
 end
 
 require 'geoscript/version'
+require 'geoscript/util'
 require 'geoscript/projection'
 require 'geoscript/geom'

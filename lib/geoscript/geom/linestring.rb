@@ -28,6 +28,14 @@ module GeoScript
           raise 'LineString could not be created. Check inputs.'
         end
       end
+
+      def to_wkt
+        IO.write_wkt self
+      end
+
+      def to_json
+        IO.write_json self
+      end
     end
   end
 end

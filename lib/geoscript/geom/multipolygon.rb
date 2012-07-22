@@ -27,6 +27,14 @@ module GeoScript
 
         MultiPolygon.new polys.to_java(com.vividsolutions.jts.geom.Polygon), GEOM_FACTORY
       end
+
+      def to_wkt
+        IO.write_wkt self
+      end
+
+      def to_json
+        IO.write_json self
+      end
     end
   end
 end

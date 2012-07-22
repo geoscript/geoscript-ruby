@@ -17,7 +17,11 @@ module GeoScript
       end
 
       def to_wkt
-        "POINT(#{self.x} #{self.y})"
+        IO.write_wkt self
+      end
+
+      def to_json
+        IO.write_json self
       end
     end
   end

@@ -7,7 +7,7 @@
 <version>0.0.1-SNAPSHOT</version>
 
 <properties>
-  <gt.version>8-SNAPSHOT</gt.version>
+  <gt.version>8.0-RC2</gt.version>
 </properties>
 
 <repositories>
@@ -38,6 +38,11 @@
   <dependency>
     <groupId>org.geotools</groupId>
     <artifactId>gt-epsg-hsql</artifactId>
+    <version>${gt.version}</version>
+  </dependency>
+  <dependency>
+    <groupId>org.geotools</groupId>
+    <artifactId>gt-geojson</artifactId>
     <version>${gt.version}</version>
   </dependency>
 </dependencies>

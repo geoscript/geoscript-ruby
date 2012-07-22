@@ -32,6 +32,14 @@ module GeoScript
           Polygon.new shell, holes, GEOM_FACTORY
         end
       end
+
+      def to_wkt
+        IO.write_wkt self
+      end
+
+      def to_json
+        IO.write_json self
+      end
     end
   end
 end
