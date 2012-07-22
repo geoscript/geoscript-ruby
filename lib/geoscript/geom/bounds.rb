@@ -12,6 +12,7 @@ module GeoScript
         projection = GeoScript::Projection.new proj if proj
 
         if env.kind_of? Envelope
+          puts 'Envelope'
           if projection
             bounds = Bounds.new env, projection
           elsif env.respond_to? :crs
@@ -20,6 +21,8 @@ module GeoScript
             else
               bounds = Bounds.new env, nil
             end
+          else
+            bounds = Bounds.new env, nil
           end
         else
           if env.kind_of? Hash

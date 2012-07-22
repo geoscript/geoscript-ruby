@@ -13,7 +13,9 @@ module GeoScript
       def self.create(x, y = nil, z = nil)
         c = Coordinate.new x, y
         p = GEOM_FACTORY.create_point c
-        Point.new p.coordinate_sequence, GEOM_FACTORY
+        point = Point.new p.coordinate_sequence, GEOM_FACTORY
+        GeoScript::Geom.enhance point
+        point
       end
 
       def to_wkt
