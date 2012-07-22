@@ -21,6 +21,10 @@ module GeoScript
         IO.write_wkt self
       end
 
+      def to_wkb
+        IO.write_wkb self
+      end
+
       def to_json
         IO.write_json self
       end
