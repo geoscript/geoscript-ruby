@@ -25,7 +25,9 @@ module GeoScript
           end
         end
 
-        MultiPolygon.new polys.to_java(com.vividsolutions.jts.geom.Polygon), GEOM_FACTORY
+        multi_poly = MultiPolygon.new polys.to_java(com.vividsolutions.jts.geom.Polygon), GEOM_FACTORY
+        GeoScript::Geom.enhance multi_poly
+        multi_poly
       end
 
       def to_wkt

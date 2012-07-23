@@ -11,9 +11,9 @@ module GeoScript
         strings = []
 
         if line_strings.first.kind_of? MultiLineString
-          multi_line_string = line_strings.first
-          for i in range(0...multi_line_string.num_geometries)
-            strings << multi_line_string.get_geometry_n(i)
+          multi_line_string_geom = line_strings.first
+          for i in range(0...multi_line_string_geom.num_geometries)
+            strings << multi_line_string_geom.get_geometry_n(i)
           end
         else
           line_strings.each do |line_string|
@@ -25,7 +25,9 @@ module GeoScript
           end
         end
 
-        MultiLineString.new strings.to_java(com.vividsolutions.jts.geom.LineString), GEOM_FACTORY
+        multi_line_string = MultiLineString.new strings.to_java(com.vividsolutions.jts.geom.LineString), GEOM_FACTORY
+        GeoScript::Geom.enhance multi_line_string
+        multi_line_string
       end
 
       def to_wkt

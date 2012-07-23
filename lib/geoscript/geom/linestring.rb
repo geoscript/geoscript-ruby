@@ -23,7 +23,9 @@ module GeoScript
         end
         
         if ls
-          LineString.new ls.coordinate_sequence, GEOM_FACTORY
+          line_string = LineString.new ls.coordinate_sequence, GEOM_FACTORY
+          GeoScript::Geom.enhance line_string
+          line_string
         else
           raise 'LineString could not be created. Check inputs.'
         end

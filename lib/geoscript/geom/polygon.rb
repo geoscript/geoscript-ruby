@@ -16,7 +16,7 @@ module GeoScript
           for i in (0...num_rings)
             interior_rings << rings.first.get_interior_ring_n(i)
           end
-          Polygon.new rings.first.exterior_ring, interior_rings, GEOM_FACTORY
+          poly = Polygon.new rings.first.exterior_ring, interior_rings, GEOM_FACTORY
         else
           linear_rings = []
           rings.each do |ring|
@@ -29,8 +29,10 @@ module GeoScript
           
           shell = linear_rings.first
           holes = linear_rings[1..linear_rings.size].to_java(com.vividsolutions.jts.geom.LinearRing)
-          Polygon.new shell, holes, GEOM_FACTORY
+          poly = Polygon.new shell, holes, GEOM_FACTORY
         end
+        GeoScript::Geom.enhance poly
+        poly
       end
 
       def to_wkt

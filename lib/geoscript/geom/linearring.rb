@@ -10,11 +10,13 @@ module GeoScript
 
       def self.create(*coords)
         if coords.size == 1
-          LinearRing.new coords.first.coordinate_sequence if coords.first.kind_of? LinearRing
+          linear_ring = LinearRing.new coords.first.coordinate_sequence if coords.first.kind_of? LinearRing
         else
           line_string = LineString.create *coords
-          LinearRing.new line_string.coordinate_sequence, GEOM_FACTORY
+          linear_ring = LinearRing.new line_string.coordinate_sequence, GEOM_FACTORY
         end
+        GeoScript::Geom.enhance linear_ring
+        linear_ring
       end
 
       def to_wkt
