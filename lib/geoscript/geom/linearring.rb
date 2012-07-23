@@ -6,6 +6,8 @@ module GeoScript
     class LinearRing < JTSLinearRing
       include GeoScript::Geom
 
+      attr_accessor :bounds
+
       def initialize(*args);end
 
       def self.create(*coords)

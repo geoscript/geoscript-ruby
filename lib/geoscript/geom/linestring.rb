@@ -6,9 +6,11 @@ module GeoScript
     class LineString < JTSLineString
       include GeoScript::Geom
 
+      attr_accessor :bounds
+
       def initialize(*args);end
 
-      def self.create(*coords)
+      def self.create(*coords) # account for [[],[]] case(s)
         if coords.size == 1
           ls = coords.first if coords.first.kind_of? LineString
         else

@@ -5,6 +5,8 @@ module GeoScript
     class MultiLineString < JTSMultiLineString
       include GeoScript::Geom
 
+      attr_accessor :bounds
+
       def initialize(*args);end
 
       def self.create(*line_strings)

@@ -36,5 +36,13 @@ module GeoScript
     def self.enhance(geom)
       geom.bounds = Geom.get_bounds geom
     end
+
+    def self.to_wkt(geom)
+      GeoScript::Geom::IO.write_wkt geom
+    end
+
+    def self.from_wkt(wkt)
+      GeoScript::Geom::IO.read_wkt wkt
+    end
   end
 end
