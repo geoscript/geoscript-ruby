@@ -10,9 +10,22 @@ module GeoScript
 
       def initialize(*args);end
 
-      def self.create(*coords) # account for [[],[]] case(s)
+      def self.create(*coords)
         if coords.size == 1
-          ls = coords.first if coords.first.kind_of? LineString
+          if coords.first.kind_of? LineString
+            ls = coords.first
+          elsif coords.kind_of? Array
+            if coords.first.kind_of? Array
+              l = []
+              coords.first.each do |coord|
+                l << Coordinate.new(coord[0], coord[1])
+                l.last.z = coord[2] if coord[2]
+              end
+              if l.size > 0
+                ls = GEOM_FACTORY.create_line_string l.to_java(com.vividsolutions.jts.geom.Coordinate)
+              end
+            end
+          end
         else
           l = []
           coords.each do |coord|
