@@ -50,7 +50,6 @@ module GeoScript
     end
 
     def transform(obj, dest)
-      Hints.put_system_default Hints::FORCE_LONGITUDE_FIRST_AXIS_ORDER, java.lang.Boolean.new(true)
       from_crs = @crs
       to_crs = Projection.new(dest).crs
       transform = CRS.find_math_transform(from_crs, to_crs)

@@ -5,7 +5,8 @@ require 'geoscript/version'
 Gem::Specification.new do |gem|
   gem.name = 'geoscript-ruby'
   gem.version = GeoScript::VERSION
-  gem.summary = gem.description = 'GeoScript for JRuby'
+  gem.summary = 'GeoScript is a library for making use of GeoTools from JRuby easier and more fun.'
+  gem.description = 'GeoScript for JRuby - makes using GeoTools from JRuby easier and more fun.'
   gem.licenses = ['MIT']
 
   gem.authors = ['Scooter Wadsworth']
