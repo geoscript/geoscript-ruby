@@ -58,7 +58,24 @@ module GeoScript
       else
         geometry_transform = GeometryCoordinateSequenceTransformer.new
         geometry_transform.math_transform = transform
-        geometry_transform.transform obj
+        new_geom = geometry_transform.transform obj
+        # not entirely comfortable with this
+        case new_geom.class.to_s
+        when 'Java::ComVividsolutionsJtsGeom::Point'
+          GeoScript::Geom::Point.create new_geom
+        when 'Java::ComVividsolutionsJtsGeom::Polygon'
+          GeoScript::Geom::Polygon.create new_geom
+        when 'Java::ComVividsolutionsJtsGeom::MultiPoint'
+          GeoScript::Geom::MultiPoint.create new_geom
+        when 'Java::ComVividsolutionsJtsGeom::MultiPolygon'
+          GeoScript::Geom::MultiPolygon.create new_geom
+        when 'Java::ComVividsolutionsJtsGeom::LineString'
+          GeoScript::Geom::LineString.create new_geom
+        when 'Java::ComVividsolutionsJtsGeom::MultiLineString'
+          GeoScript::Geom::MultiLineString.create new_geom
+        when 'Java::ComVividsolutionsJtsGeom::LinearRing'
+          GeoScript::Geom::LinearRing.create new_geom
+        end  
       end
     end
 

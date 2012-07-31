@@ -11,8 +11,13 @@ module GeoScript
       def initialize(*args);end
 
       def self.create(x, y = nil, z = nil)
-        c = Coordinate.new x, y
-        p = GEOM_FACTORY.create_point c
+        if x.kind_of? JTSPoint
+          p = x
+        else
+          c = Coordinate.new x, y
+          p = GEOM_FACTORY.create_point c
+        end
+
         point = Point.new p.coordinate_sequence, GEOM_FACTORY
         GeoScript::Geom.enhance point
         point
