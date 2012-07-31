@@ -10,13 +10,13 @@ module GeoScript
       def initialize(*args);end
 
       def self.create(*rings)
-        if rings.first.kind_of? Polygon
+        if rings.first.kind_of? JTSPolygon
           interior_rings = []
           num_rings = rings.first.num_interior_ring
           for i in (0...num_rings)
             interior_rings << rings.first.get_interior_ring_n(i)
           end
-          poly = Polygon.new rings.first.exterior_ring, interior_rings, GEOM_FACTORY
+          poly = Polygon.new rings.first.exterior_ring, interior_rings.to_java(com.vividsolutions.jts.geom.LinearRing), GEOM_FACTORY
         else
           linear_rings = []
           rings.each do |ring|
@@ -33,6 +33,10 @@ module GeoScript
         end
         GeoScript::Geom.enhance poly
         poly
+      end
+
+      def buffer(dist)
+        Polygon.create super
       end
 
       def to_wkt

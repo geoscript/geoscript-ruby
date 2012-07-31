@@ -46,6 +46,10 @@ module GeoScript
         end
       end
 
+      def buffer(dist)
+        Polygon.create super
+      end
+
       def to_wkt
         IO.write_wkt self
       end
