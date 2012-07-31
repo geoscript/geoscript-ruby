@@ -8,19 +8,15 @@ module GeoScript
 
       attr_accessor :bounds
 
-      def initialize(*args);end
-
-      def self.create(x, y = nil, z = nil)
-        if x.kind_of? JTSPoint
-          p = x
+      def initialize(*coords)
+        if coords.first.kind_of? JTSPoint
+          p = coords.first
         else
-          c = Coordinate.new x, y
+          c = Coordinate.new coords[0], coords[1]
+          c.z = coords[2] if coords[2]
           p = GEOM_FACTORY.create_point c
         end
-
-        point = Point.new p.coordinate_sequence, GEOM_FACTORY
-        GeoScript::Geom.enhance point
-        point
+        super p.coordinate_sequence, GEOM_FACTORY
       end
 
       def buffer(dist)

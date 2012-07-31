@@ -7,16 +7,15 @@ module GeoScript
 
       attr_accessor :bounds
 
-      def initialize(*args);end
-
-      def self.create(*rings)
+      def initialize(*rings)
         if rings.first.kind_of? JTSPolygon
           interior_rings = []
           num_rings = rings.first.num_interior_ring
           for i in (0...num_rings)
             interior_rings << rings.first.get_interior_ring_n(i)
           end
-          poly = Polygon.new rings.first.exterior_ring, interior_rings.to_java(com.vividsolutions.jts.geom.LinearRing), GEOM_FACTORY
+          shell = rings.first.exterior_ring
+          holes = interior_rings.to_java(com.vividsolutions.jts.geom.LinearRing)
         else
           linear_rings = []
           rings.each do |ring|
@@ -29,10 +28,8 @@ module GeoScript
           
           shell = linear_rings.first
           holes = linear_rings[1..linear_rings.size].to_java(com.vividsolutions.jts.geom.LinearRing)
-          poly = Polygon.new shell, holes, GEOM_FACTORY
         end
-        GeoScript::Geom.enhance poly
-        poly
+        super(shell, holes, GEOM_FACTORY)
       end
 
       def buffer(dist)

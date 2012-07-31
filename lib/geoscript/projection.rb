@@ -62,9 +62,9 @@ module GeoScript
         # not entirely comfortable with this
         case new_geom.class.to_s
         when 'Java::ComVividsolutionsJtsGeom::Point'
-          GeoScript::Geom::Point.create new_geom
+          GeoScript::Geom::Point.new new_geom
         when 'Java::ComVividsolutionsJtsGeom::Polygon'
-          GeoScript::Geom::Polygon.create new_geom
+          GeoScript::Geom::Polygon.new new_geom
         when 'Java::ComVividsolutionsJtsGeom::MultiPoint'
           GeoScript::Geom::MultiPoint.create new_geom
         when 'Java::ComVividsolutionsJtsGeom::MultiPolygon'
