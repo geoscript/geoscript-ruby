@@ -8,21 +8,17 @@ module GeoScript
 
       attr_accessor :bounds
 
-      def initialize(*args);end
-
-      def self.create(*coords)
+      def initialize(*coords)
         if coords.size == 1
-          linear_ring = LinearRing.new coords.first.coordinate_sequence if coords.first.kind_of? LinearRing
+          super(coords.first.coordinate_sequence) if coords.first.kind_of? LinearRing
         else
-          line_string = LineString.create *coords
-          linear_ring = LinearRing.new line_string.coordinate_sequence, GEOM_FACTORY
+          line_string = LineString.new *coords
+          super(line_string.coordinate_sequence, GEOM_FACTORY)
         end
-        GeoScript::Geom.enhance linear_ring
-        linear_ring
       end
 
       def buffer(dist)
-        Polygon.create super
+        Polygon.new super
       end
 
       def to_wkt

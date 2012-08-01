@@ -6,42 +6,38 @@ module GeoScript
     class Bounds < ReferencedEnvelope
       include GeoScript::Geom
 
-      def initialize(*args);end
-
-      def self.create(env, proj = nil)
+      def initialize(env, proj = nil)
         projection = GeoScript::Projection.new proj if proj
 
         if env.kind_of? Envelope
           if projection
-            bounds = Bounds.new env, projection
+            super(env, projection)
           elsif env.respond_to? :crs
             if env.crs
-              bounds = Bounds.new env, env.crs
+              super(env, env.crs)
             else
-              bounds = Bounds.new env, nil
+              super(env, nil)
             end
           else
-            bounds = Bounds.new env, nil
+            super(env, nil)
           end
         else
           if env.kind_of? Hash
             if projection
-              bounds = Bounds.new env[:x_min], env[:x_max], env[:y_min], env[:y_max], projection
+              super(env[:x_min], env[:x_max], env[:y_min], env[:y_max], projection)
             else
-              bounds = Bounds.new env[:x_min], env[:x_max], env[:y_min], env[:y_max], nil
+              super(env[:x_min], env[:x_max], env[:y_min], env[:y_max], nil)
             end
           elsif env.kind_of? Array
             if projection
-              bounds = Bounds.new env[0], env[1], env[2], env[3], projection
+              super(env[0], env[1], env[2], env[3], projection)
             else
-              bounds = Bounds.new env[0], env[1], env[2], env[3]
+              super(env[0], env[1], env[2], env[3])
             end
           else
-            bounds = Bounds.new
+            super()
           end
         end
-        
-        bounds
       end
 
       def get_west

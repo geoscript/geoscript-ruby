@@ -8,12 +8,9 @@ module GeoScript
 
       attr_accessor :bounds
 
-      def initialize(*args);end
-
-      def self.create(*coords)
+      def initialize(*coords)
         if coords.size == 1
-          if coords.first.kind_of? LineString
-            ls = coords.first
+          if coords.first.kind_of? JTSLineString
           elsif coords.kind_of? Array
             if coords.first.kind_of? Array
               l = []
@@ -36,18 +33,16 @@ module GeoScript
             ls = GEOM_FACTORY.create_line_string l.to_java(com.vividsolutions.jts.geom.Coordinate)
           end
         end
-        
+
         if ls
-          line_string = LineString.new ls.coordinate_sequence, GEOM_FACTORY
-          GeoScript::Geom.enhance line_string
-          line_string
+          super(ls.coordinate_sequence, GEOM_FACTORY)
         else
           raise 'LineString could not be created. Check inputs.'
         end
       end
 
       def buffer(dist)
-        Polygon.create super
+        Polygon.new super
       end
 
       def to_wkt

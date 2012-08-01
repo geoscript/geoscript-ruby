@@ -30,7 +30,7 @@ module GeoScript
     end
 
     def self.get_bounds(geom)
-      Bounds.create geom.get_envelope_internal
+      Bounds.new geom.get_envelope_internal
     end
 
     def self.enhance(geom)

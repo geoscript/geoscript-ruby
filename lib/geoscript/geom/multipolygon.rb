@@ -7,33 +7,28 @@ module GeoScript
 
       attr_accessor :bounds
 
-      def initialize(*args);end
-
-      def self.create(*polygons)
+      def initialize(*polygons)
         polys = []
 
-        if polygons.first.kind_of? MultiPolygon
+        if polygons.first.kind_of? JTSMultiPolygon
           multi_polygon = polygons.first
           for i in range(0...multi_polygon.num_geometries)
             polys << multi_polygon.get_geometry_n(i)
           end
         else
           polygons.each do |polygon|
-            if polygon.kind_of? Polygon
+            if polygon.kind_of? Java::ComVividsolutionsJtsGeom::Polygon
               polys << polygon
             else
-              polys << Polygon.create(*polygon)
+              polys << Polygon.new(*polygon)
             end
           end
         end
-
-        multi_poly = MultiPolygon.new polys.to_java(com.vividsolutions.jts.geom.Polygon), GEOM_FACTORY
-        GeoScript::Geom.enhance multi_poly
-        multi_poly
+        super(polys.to_java(com.vividsolutions.jts.geom.Polygon), GEOM_FACTORY)
       end
 
       def buffer(dist)
-        Polygon.create super
+        Polygon.new super
       end
 
       def to_wkt
