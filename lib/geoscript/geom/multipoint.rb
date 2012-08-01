@@ -7,14 +7,11 @@ module GeoScript
 
       attr_accessor :bounds
 
-      def intitialize(*args);end
-
-      def self.create(*points)
+      def initialize(*points)
         feature_points = []
 
-        if points.first.kind_of? MultiPoint
-          multi_point_geom = points.first
-
+        if points.first.kind_of? JTSMultiPoint
+          multi_point_geom = point.first
           for i in (0...multi_point_geom.num_geometries)
             feature_points << multi_point_geom.get_geometry_n(i)
           end
@@ -23,18 +20,16 @@ module GeoScript
             if point.kind_of? Point
               feature_points << point
             else
-              feature_points << Point.create(*point)
+              feature_points << Point.new(*point)
             end
           end
         end
 
-        multi_point = MultiPoint.new feature_points.to_java(com.vividsolutions.jts.geom.Point), GEOM_FACTORY
-        GeoScript::Geom.enhance multi_point
-        multi_point
+        super(feature_points.to_java(com.vividsolutions.jts.geom.Point), GEOM_FACTORY)
       end
 
       def buffer(dist)
-        Polygon.create super
+        Polygon.new super
       end
 
       def to_wkt

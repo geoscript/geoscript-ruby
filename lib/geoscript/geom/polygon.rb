@@ -22,7 +22,7 @@ module GeoScript
             if ring.kind_of? LinearRing
               linear_rings << ring
             else
-              linear_rings << LinearRing.create(*ring)
+              linear_rings << LinearRing.new(*ring)
             end
           end
           
@@ -33,7 +33,7 @@ module GeoScript
       end
 
       def buffer(dist)
-        Polygon.create super
+        Polygon.new super
       end
 
       def to_wkt

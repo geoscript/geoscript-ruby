@@ -20,7 +20,7 @@ module GeoScript
       end
 
       def buffer(dist)
-        Polygon.create super
+        Polygon.new super
       end
 
       def to_wkt
