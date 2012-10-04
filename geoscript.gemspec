@@ -3,10 +3,11 @@ $:.push File.expand_path('../lib', __FILE__)
 require 'geoscript/version'
 
 Gem::Specification.new do |gem|
-  gem.name = 'geoscript'
+  gem.name = 'geoscript-ruby'
   gem.version = GeoScript::VERSION
   gem.summary = 'GeoScript is a library for making use of GeoTools from JRuby easier and more fun.'
   gem.description = 'GeoScript for JRuby - makes using GeoTools from JRuby easier and more fun.'
+  gem.platform = 'java'
   gem.licenses = ['MIT']
 
   gem.authors = ['Scooter Wadsworth']
