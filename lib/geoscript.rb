@@ -1,4 +1,5 @@
-$:.push File.expand_path(File.join(File.dirname(__FILE__), 'geoscript'))
+$: << File.expand_path(File.dirname(__FILE__))
+$: << File.expand_path(File.join(File.dirname(__FILE__), 'geoscript'))
 
 if defined?(JRUBY_VERSION)
   require 'java'
@@ -13,6 +14,7 @@ if defined?(JRUBY_VERSION)
   require 'geoscript/util'
   require 'geoscript/projection'
   require 'geoscript/geom'
+  require 'geoscript/feature'
 else
   warn "GeoScript requires JRuby (http://jruby.org)"
 end
