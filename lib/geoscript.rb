@@ -13,7 +13,6 @@ if defined?(JRUBY_VERSION)
   require 'geoscript/util'
   require 'geoscript/projection'
   require 'geoscript/geom'
-  #require 'geoscript/feature'
 else
-  warn "GeoScript is for JRuby only"
+  warn "GeoScript requires JRuby (http://jruby.org)"
 end
