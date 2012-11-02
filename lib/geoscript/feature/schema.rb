@@ -18,43 +18,64 @@ module GeoScript
           fields.each do |field|
             if field.instance_of? GeoScript::Feature::Field
               name, type, proj = field.name, field.type, field.proj
-            else
-              if field.instance_of? Hash
+            elsif field.instance_of? Hash
+              if field[:name] && field[:type]
+                name, type = field[:name], field[:type]
+              else
                 name, type = field.keys.first, field.values.first
-              elsif field.instance_of? Array
-                name, type = field[0], field[1]
+              end
 
-                if type.kind_of? GeoScript::Geom
-                  proj = GeoScript::Projection.new(field[2]) if field[2]
-                else
-                  raise 'Invalid type specified. Must be of type GeoScript::Geom::*'
-                end
+              if type.name.match /GeoScript::Geom/
+                proj = GeoScript::Projection.new(field[:proj]) if field[:proj]
+              end
+            elsif field.instance_of? Array
+              name, type = field[0], field[1]
+
+              if type.name.match /GeoScript::Geom/
+                proj = GeoScript::Projection.new(field[2]) if field[2]
               end
             end
             type_builder.crs proj if proj
-            type_builder.add name, type.java_class
-            @feature_type = type_builder.build_feature_type
+            type_builder.add name, type.to_java.java_class
+            p type_builder.attributes
           end
+          @feature_type = type_builder.build_feature_type
         else
-          raise "No fields specified for feature type: #{type}"
+          if !name && fields.empty?
+            raise "No name specified & No fields specified for type: #{type}"
+          elsif fields.empty?
+            raise "No fields specified for type: #{type}" if fields.empty?
+          elsif !name
+            raise 'No name specified'
+          end
         end
       end
 
-      def get_name
+      def name
         @feature_type.name.local_part
       end
 
-      def get_uri
+      def uri
         @feature_type.name.namespaceURI
       end
 
-      def get_proj
+      def proj
         crs = @feature_type.coordinate_reference_system
         GeoScript::Projection.new crs if crs
       end
 
+      def fields
+        fields = []
+
+        @feature_type.attribute_descriptors.each do |ad|
+          fields << self.get(ad.local_name)
+        end
+
+        fields
+      end
+
       def get(name)
-        ad = @feature_type.get_descriptor name
+        @feature_type.get_descriptor name
       end
     end
   end
