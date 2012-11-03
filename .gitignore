@@ -2,5 +2,6 @@
 .bundle
 Gemfile.lock
 .rbenv-version
+.rvmrc
 .DS_Store
 target/

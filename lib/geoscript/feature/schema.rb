@@ -4,79 +4,74 @@ java_import org.geotools.feature.NameImpl
 java_import org.geotools.feature.simple.SimpleFeatureTypeBuilder
 
 module GeoScript
-  module Feature
-    class Schema
-      include GeoScript::Feature
+  class Schema
+    attr_accessor :feature_type
 
-      attr_accessor :feature_type
-
-      def initialize(name = nil, fields = [], type = nil, uri = 'http://geoscript.org/feature')
-        if name && !fields.empty?
-          type_builder = SimpleFeatureTypeBuilder.new
-          type_builder.set_name NameImpl.new(name)
-          type_builder.setNamespaceURI uri
-          fields.each do |field|
-            if field.instance_of? GeoScript::Feature::Field
-              name, type, proj = field.name, field.type, field.proj
-            elsif field.instance_of? Hash
-              if field[:name] && field[:type]
-                name, type = field[:name], field[:type]
-              else
-                name, type = field.keys.first, field.values.first
-              end
-
-              if type.name.match /GeoScript::Geom/
-                proj = GeoScript::Projection.new(field[:proj]) if field[:proj]
-              end
-            elsif field.instance_of? Array
-              name, type = field[0], field[1]
-
-              if type.name.match /GeoScript::Geom/
-                proj = GeoScript::Projection.new(field[2]) if field[2]
-              end
+    def initialize(name = nil, fields = [], type = nil, uri = 'http://geoscript.org/feature')
+      if name && !fields.empty?
+        type_builder = SimpleFeatureTypeBuilder.new
+        type_builder.set_name NameImpl.new(name)
+        type_builder.setNamespaceURI uri
+        fields.each do |field|
+          if field.instance_of? GeoScript::Field
+            name, type, proj = field.name, field.type, field.proj
+          elsif field.instance_of? Hash
+            if field[:name] && field[:type]
+              name, type = field[:name], field[:type]
+            else
+              name, type = field.keys.first, field.values.first
             end
-            type_builder.crs proj if proj
-            type_builder.add name, type.to_java.java_class
-            p type_builder.attributes
+
+            if type.name.match /GeoScript::Geom/
+              proj = GeoScript::Projection.new(field[:proj]) if field[:proj]
+            end
+          elsif field.instance_of? Array
+            name, type = field[0], field[1]
+
+            if type.name.match /GeoScript::Geom/
+              proj = GeoScript::Projection.new(field[2]) if field[2]
+            end
           end
-          @feature_type = type_builder.build_feature_type
-        else
-          if !name && fields.empty?
-            raise "No name specified & No fields specified for type: #{type}"
-          elsif fields.empty?
-            raise "No fields specified for type: #{type}" if fields.empty?
-          elsif !name
-            raise 'No name specified'
-          end
+          type_builder.crs proj if proj
+          type_builder.add name, type.to_java.java_class
+        end
+        @feature_type = type_builder.build_feature_type
+      else
+        if !name && fields.empty?
+          raise "No name specified & No fields specified for type: #{type}"
+        elsif fields.empty?
+          raise "No fields specified for type: #{type}" if fields.empty?
+        elsif !name
+          raise 'No name specified'
         end
       end
+    end
 
-      def name
-        @feature_type.name.local_part
+    def name
+      @feature_type.name.local_part
+    end
+
+    def uri
+      @feature_type.name.namespaceURI
+    end
+
+    def proj
+      crs = @feature_type.coordinate_reference_system
+      GeoScript::Projection.new crs if crs
+    end
+
+    def fields
+      fields = []
+
+      @feature_type.attribute_descriptors.each do |ad|
+        fields << self.get(ad.local_name)
       end
 
-      def uri
-        @feature_type.name.namespaceURI
-      end
+      fields
+    end
 
-      def proj
-        crs = @feature_type.coordinate_reference_system
-        GeoScript::Projection.new crs if crs
-      end
-
-      def fields
-        fields = []
-
-        @feature_type.attribute_descriptors.each do |ad|
-          fields << self.get(ad.local_name)
-        end
-
-        fields
-      end
-
-      def get(name)
-        @feature_type.get_descriptor name
-      end
+    def get(name)
+      @feature_type.get_descriptor name
     end
   end
 end
