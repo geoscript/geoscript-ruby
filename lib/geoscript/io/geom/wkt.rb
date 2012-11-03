@@ -2,8 +2,8 @@ java_import com.vividsolutions.jts.io.WKTReader
 java_import com.vividsolutions.jts.io.WKTWriter
 
 module GeoScript
-  module Geom
-    module IO
+  module IO
+    module Geom
       def self.read_wkt(wkt)
         WKTReader.new.read wkt
       end

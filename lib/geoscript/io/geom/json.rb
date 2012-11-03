@@ -1,8 +1,8 @@
 java_import org.geotools.geojson.geom.GeometryJSON
 
 module GeoScript
-  module Geom
-    module IO
+  module IO
+    module Geom
       def self.write_json(geom)
         GeometryJSON.new.to_string geom
       end
