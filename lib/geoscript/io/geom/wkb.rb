@@ -2,8 +2,8 @@ java_import com.vividsolutions.jts.io.WKBReader
 java_import com.vividsolutions.jts.io.WKBWriter
 
 module GeoScript
-  module Geom
-    module IO
+  module IO
+    module Geom
       include GeoScript::Util
 
       def self.write_wkb(geom)
