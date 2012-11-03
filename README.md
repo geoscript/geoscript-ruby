@@ -2,6 +2,13 @@ geoscript-ruby
 
 GeoScript for JRuby
 
+To start:
+(installed gem)
+%> geoscript
+
+(development)
+%> rake console {OR} %> bin/geoscript
+
 ```ruby
 require 'geoscript'
 # => true
