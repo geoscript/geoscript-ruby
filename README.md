@@ -2,14 +2,17 @@ geoscript-ruby
 
 GeoScript for JRuby
 
-To start:
-(installed gem)
-%> geoscript
-
-(development)
-%> rake console {OR} %> bin/geoscript
+If in development, run `mvn install` to get GeoTools dependencies
 
 ```ruby
+# installed gem
+# %> geoscript
+
+# development
+# %> rake console
+# or
+# %> bin/geoscript
+
 require 'geoscript'
 # => true
 include GeoScript::Geom
