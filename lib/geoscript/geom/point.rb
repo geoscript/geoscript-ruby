@@ -29,15 +29,15 @@ module GeoScript
       end
 
       def to_wkt
-        IO.write_wkt self
+        GeoScript::IO::Geom.write_wkt self
       end
 
       def to_wkb
-        IO.write_wkb self
+        GeoScript::IO::Geom.write_wkb self
       end
 
       def to_json
-        IO.write_json self
+        GeoScript::IO::Geom.write_json self
       end
     end
   end

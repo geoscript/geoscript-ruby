@@ -38,11 +38,11 @@ module GeoScript
     end
 
     def self.to_wkt(geom)
-      GeoScript::Geom::IO.write_wkt geom
+      GeoScript::IO::Geom.write_wkt geom
     end
 
     def self.from_wkt(wkt)
-      GeoScript::Geom::IO.read_wkt wkt
+      GeoScript::IO::Geom.read_wkt wkt
     end
   end
 end
