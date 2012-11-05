@@ -3,8 +3,10 @@ ogFeature = org.opengis.feature.Feature
 
 module GeoScript
   class Feature
-    def initialize(attrs = nil, id = nil, schema = nil, feature = nil)
-      if attrs
+    def initialize(attrs = nil, id = nil, schema = nil)
+      raise 'No attributes specified for feature' unless attrs
+      
+      if attrs.kind_of? GeoScript::Feature
         unless schema
           if attrs.instance_of? Hash
             schema_attrs = []
@@ -28,11 +30,9 @@ module GeoScript
         sfb = SimpleFeatureBuilder.new @schema.feature_type
         attrs.each {|k, v| sfb.set(k, v)}
         @feature = sfb.build_feature id
-      elsif feature
-        @feature = feature
-        @schema = schema ? schema : GeoScript::Schema.new(feature.feature_type)
       else
-        raise 'No attributes specified for feature'
+        @feature = attrs
+        @schema = schema ? schema : GeoScript::Schema.new(@feature.feature_type)
       end
     end
 
