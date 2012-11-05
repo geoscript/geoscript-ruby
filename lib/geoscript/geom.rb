@@ -1,6 +1,3 @@
-require 'geom/io/json'
-require 'geom/io/wkt'
-require 'geom/io/wkb'
 require 'geom/geom'
 require 'geom/bounds'
 require 'geom/point'

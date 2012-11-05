@@ -15,6 +15,8 @@ if defined?(JRUBY_VERSION)
   require 'geoscript/projection'
   require 'geoscript/geom'
   require 'geoscript/feature'
+  require 'geoscript/datastore'
+  require 'geoscript/workspace'
 else
   warn "GeoScript requires JRuby (http://jruby.org)"
 end
