@@ -6,7 +6,7 @@ module GeoScript
     def initialize(attrs = nil, id = nil, schema = nil)
       raise 'No attributes specified for feature' unless attrs
       
-      if attrs.kind_of? GeoScript::Feature
+      unless attrs.kind_of? GeoScript::Feature
         unless schema
           if attrs.instance_of? Hash
             schema_attrs = []
