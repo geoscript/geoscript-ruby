@@ -12,6 +12,7 @@ if defined?(JRUBY_VERSION)
 
   require 'geoscript/version'
   require 'geoscript/util'
+  require 'geoscript/io'
   require 'geoscript/projection'
   require 'geoscript/geom'
   require 'geoscript/feature'
