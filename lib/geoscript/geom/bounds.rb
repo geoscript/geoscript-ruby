@@ -61,14 +61,20 @@ module GeoScript
         GeoScript::Projection.new crs if crs
       end
 
-      def self.scale(bounds, factor)
+      def get_aspect
+        self.width / self.height
+      end
+
+      def scale(factor)
         width = self.width * (factor - 1) / 2
         height = self.height * (factor - 1) / 2
 
         Bounds.new self.west - width, self.south - height, self.east + width, self.north + height
       end
 
-      def expand(other_bounds);end
+      def expand(other)
+        self.expand_to_include(other)
+      end
 
       def to_polygon;end
 

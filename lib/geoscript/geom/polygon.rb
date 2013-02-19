@@ -25,7 +25,7 @@ module GeoScript
               linear_rings << LinearRing.new(*ring)
             end
           end
-          
+
           shell = linear_rings.first
           holes = linear_rings[1..linear_rings.size].to_java(com.vividsolutions.jts.geom.LinearRing)
         end
@@ -46,6 +46,10 @@ module GeoScript
 
       def to_json
         GeoScript::IO::Geom.write_json self
+      end
+
+      def bounds
+        Bounds.new self.get_envelope_internal
       end
     end
   end
