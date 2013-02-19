@@ -33,7 +33,14 @@ module GeoScript
             end
           end
           type_builder.crs proj if proj
-          type_builder.add name, type.to_java.java_class
+
+          if type.name.match /GeoScript::Geom/
+            type = type.superclass.java_class
+          else
+            type = type.to_java.java_class
+          end
+
+          type_builder.add name, type
         end
         @feature_type = type_builder.build_feature_type
       else
@@ -71,7 +78,10 @@ module GeoScript
     end
 
     def get(name)
-      @feature_type.get_descriptor name
+      ad = @feature_type.get_descriptor name
+      GeoScript::Field.new(ad.local_name, ad.type.binding, ad.coordinate_reference_system)
+    rescue NoMethodError
+      return nil
     end
   end
 end
