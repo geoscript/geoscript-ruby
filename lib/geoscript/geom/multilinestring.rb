@@ -12,7 +12,8 @@ module GeoScript
 
         if line_strings.first.kind_of? JTSMultiLineString
           multi_line_string_geom = line_strings.first
-          for i in range(0...multi_line_string_geom.num_geometries)
+
+          for i in (0...multi_line_string_geom.num_geometries)
             strings << multi_line_string_geom.get_geometry_n(i)
           end
         else

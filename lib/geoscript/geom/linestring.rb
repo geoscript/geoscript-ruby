@@ -11,6 +11,7 @@ module GeoScript
       def initialize(*coords)
         if coords.size == 1
           if coords.first.kind_of? JTSLineString
+            ls = coords.first
           elsif coords.kind_of? Array
             if coords.first.kind_of? Array
               l = []

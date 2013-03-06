@@ -11,9 +11,10 @@ module GeoScript
         feature_points = []
 
         if points.first.kind_of? JTSMultiPoint
-          multi_point_geom = point.first
-          for i in (0...multi_point_geom.num_geometries)
-            feature_points << multi_point_geom.get_geometry_n(i)
+          mp_geom = points.first
+
+          for i in (0...mp_geom.num_geometries)
+            feature_points << mp_geom.get_geometry_n(i)
           end
         else
           points.each do |point|

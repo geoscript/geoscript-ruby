@@ -34,15 +34,23 @@ module GeoScript
     end
 
     def self.enhance(geom)
-      geom.bounds = Geom.get_bounds geom
+      geom.bounds = get_bounds(geom)
     end
 
-    def self.to_wkt(geom)
-      GeoScript::IO::Geom.write_wkt geom
+    def self.to_geoscript_geom(geom)
+      const_get(geom.geometry_type).new(geom)
+    end
+
+    def self.from_json(json)
+      to_geoscript_geom(GeoScript::IO::Geom.read_json(json))
     end
 
     def self.from_wkt(wkt)
-      GeoScript::IO::Geom.read_wkt wkt
+      to_geoscript_geom(GeoScript::IO::Geom.read_wkt(wkt))
+    end
+
+    def self.from_wkb(wkb)
+      to_geoscript_geom(GeoScript::IO::Geom.read_wkb(wkb))
     end
   end
 end
