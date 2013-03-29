@@ -7,7 +7,7 @@
 <version>0.0.1-SNAPSHOT</version>
 
 <properties>
-  <gt.version>8.6</gt.version>
+  <gt.version>9.0</gt.version>
 </properties>
 
 <repositories>

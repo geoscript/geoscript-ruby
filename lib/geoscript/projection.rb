@@ -14,10 +14,10 @@ module GeoScript
         @crs = proj.crs
       elsif proj.kind_of? String
         @crs = CRS.decode proj
-        
+
         if @crs.nil?
           @crs = CRS.parseWKT proj
-          
+
           if @crs.nil?
             raise "Unable to determine projection from #{proj}"
           end
@@ -61,12 +61,24 @@ module GeoScript
         new_geom = geometry_transform.transform obj
         geom_type = new_geom.class.to_s.split('::').last
         klass = ['GeoScript', 'Geom', geom_type].inject(Module) {|acc, val| acc.const_get(val)}
-        klass.new(new_geom)  
+        klass.new(new_geom)
       end
     end
 
     def self.reproject(obj, from_crs, to_crs)
       Projection.new(from_crs).transform obj, to_crs
+    end
+
+    def self.projections
+      CRS.get_supported_codes('epsg').each do |code|
+        begin
+          Projection.new "epsg:#{code}"
+        rescue Java::OrgOpengisReferencing::NoSuchAuthorityCodeException
+          p "code: #{code} -> no such authority"
+        rescue Java::OrgOpengisReferencing::FactoryException => e
+          p "exception: #{e}"
+        end
+      end
     end
   end
 end

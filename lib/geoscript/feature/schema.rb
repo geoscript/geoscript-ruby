@@ -7,7 +7,7 @@ module GeoScript
   class Schema
     attr_accessor :feature_type
 
-    def initialize(name = nil, fields = [], type = nil, uri = 'http://geoscript.org/feature')
+    def initialize(name=nil, fields=[], type=nil, uri='http://geoscript.org/feature')
       if name && !fields.empty?
         type_builder = SimpleFeatureTypeBuilder.new
         type_builder.set_name NameImpl.new(name)
@@ -54,20 +54,27 @@ module GeoScript
       end
     end
 
-    def name
+    def get_name
       @feature_type.name.local_part
     end
+    alias_method :name, :get_name
+
+    def get_geom
+      @feature_type.geometry_descriptor.local_name
+    end
+    alias_method :geom, :get_geom
 
     def uri
       @feature_type.name.namespaceURI
     end
 
-    def proj
+    def get_proj
       crs = @feature_type.coordinate_reference_system
       GeoScript::Projection.new crs if crs
     end
+    alias_method :proj, :get_proj
 
-    def fields
+    def get_fields
       fields = []
 
       @feature_type.attribute_descriptors.each do |ad|
@@ -76,6 +83,7 @@ module GeoScript
 
       fields
     end
+    alias_method :fields, :get_fields
 
     def get(name)
       ad = @feature_type.get_descriptor name
