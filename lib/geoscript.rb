@@ -26,5 +26,6 @@ module GeoScript
     def geotools_version
       GEOTOOLS_VERSION
     end
+    alias_method :gt_version, :geotools_version
   end
 end
