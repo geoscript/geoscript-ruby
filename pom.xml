@@ -7,7 +7,7 @@
 <version>0.0.1-SNAPSHOT</version>
 
 <properties>
-  <gt.version>9.0</gt.version>
+  <gt.version>10.0</gt.version>
 </properties>
 
 <repositories>
@@ -67,7 +67,7 @@
     <plugin>
       <artifactId>maven-dependency-plugin</artifactId>
       <configuration>
-        <outputDirectory>${basedir}/lib/geotools</outputDirectory>
+        <outputDirectory>${basedir}/geotools-libs</outputDirectory>
       </configuration>
       <executions>
         <execution>
