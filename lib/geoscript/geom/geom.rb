@@ -1,17 +1,17 @@
-java_import java.awt.geom.AffineTransform
-java_import com.vividsolutions.jts.geom.GeometryFactory
-java_import com.vividsolutions.jts.geom.Geometry
-java_import com.vividsolutions.jts.geom.prep.PreparedGeometryFactory
-java_import com.vividsolutions.jts.simplify.DouglasPeuckerSimplifier
-java_import com.vividsolutions.jts.triangulate.DelaunayTriangulationBuilder
-java_import com.vividsolutions.jts.triangulate.VoronoiDiagramBuilder
-java_import com.vividsolutions.jts.operation.buffer.BufferParameters
-java_import com.vividsolutions.jts.operation.buffer.BufferOp
-java_import org.geotools.geometry.jts.JTS
-java_import org.geotools.referencing.operation.transform.AffineTransform2D
-
 module GeoScript
   module Geom
+    java_import java.awt.geom.AffineTransform
+    java_import com.vividsolutions.jts.geom.GeometryFactory
+    java_import com.vividsolutions.jts.geom.Geometry
+    java_import com.vividsolutions.jts.geom.prep.PreparedGeometryFactory
+    java_import com.vividsolutions.jts.simplify.DouglasPeuckerSimplifier
+    java_import com.vividsolutions.jts.triangulate.DelaunayTriangulationBuilder
+    java_import com.vividsolutions.jts.triangulate.VoronoiDiagramBuilder
+    java_import com.vividsolutions.jts.operation.buffer.BufferParameters
+    java_import com.vividsolutions.jts.operation.buffer.BufferOp
+    java_import org.geotools.geometry.jts.JTS
+    java_import org.geotools.referencing.operation.transform.AffineTransform2D
+
     GEOM_FACTORY = GeometryFactory.new
     PREP_FACTORY = PreparedGeometryFactory.new
 

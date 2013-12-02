@@ -1,8 +1,8 @@
-java_import com.vividsolutions.jts.geom.Envelope
-java_import org.geotools.geometry.jts.ReferencedEnvelope
-
 module GeoScript
   module Geom
+    java_import com.vividsolutions.jts.geom.Envelope
+    java_import org.geotools.geometry.jts.ReferencedEnvelope
+
     class Bounds < ReferencedEnvelope
       include GeoScript::Geom
 

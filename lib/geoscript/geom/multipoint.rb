@@ -1,7 +1,7 @@
-JTSMultiPoint = com.vividsolutions.jts.geom.MultiPoint
-
 module GeoScript
   module Geom
+    JTSMultiPoint = com.vividsolutions.jts.geom.MultiPoint
+    
     class MultiPoint < JTSMultiPoint
       include GeoScript::Geom
 

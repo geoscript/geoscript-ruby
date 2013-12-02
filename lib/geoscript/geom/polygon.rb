@@ -1,7 +1,7 @@
-JTSPolygon = com.vividsolutions.jts.geom.Polygon
-
 module GeoScript
   module Geom
+    JTSPolygon = com.vividsolutions.jts.geom.Polygon
+
     class Polygon < JTSPolygon
       include GeoScript::Geom
 

@@ -1,8 +1,8 @@
-java_import com.vividsolutions.jts.geom.Coordinate
-JTSLineString = com.vividsolutions.jts.geom.LineString
-
 module GeoScript
   module Geom
+    java_import com.vividsolutions.jts.geom.Coordinate
+    JTSLineString = com.vividsolutions.jts.geom.LineString
+
     class LineString < JTSLineString
       include GeoScript::Geom
 

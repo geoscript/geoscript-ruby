@@ -1,8 +1,8 @@
-java_import com.vividsolutions.jts.geom.Coordinate
-JTSLinearRing = com.vividsolutions.jts.geom.LinearRing
-
 module GeoScript
   module Geom
+    java_import com.vividsolutions.jts.geom.Coordinate
+    JTSLinearRing = com.vividsolutions.jts.geom.LinearRing
+
     class LinearRing < JTSLinearRing
       include GeoScript::Geom
 

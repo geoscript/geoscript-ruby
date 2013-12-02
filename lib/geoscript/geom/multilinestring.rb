@@ -1,7 +1,7 @@
-JTSMultiLineString = com.vividsolutions.jts.geom.MultiLineString
-
 module GeoScript
   module Geom
+    JTSMultiLineString = com.vividsolutions.jts.geom.MultiLineString
+
     class MultiLineString < JTSMultiLineString
       include GeoScript::Geom
 

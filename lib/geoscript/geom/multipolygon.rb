@@ -1,7 +1,7 @@
-JTSMultiPolygon = com.vividsolutions.jts.geom.MultiPolygon
-
 module GeoScript
   module Geom
+    JTSMultiPolygon = com.vividsolutions.jts.geom.MultiPolygon
+    
     class MultiPolygon < JTSMultiPolygon
       include GeoScript::Geom
 

@@ -1,8 +1,8 @@
-java_import com.vividsolutions.jts.geom.Coordinate
-JTSPoint = com.vividsolutions.jts.geom.Point
-
 module GeoScript
   module Geom
+    java_import com.vividsolutions.jts.geom.Coordinate
+    JTSPoint = com.vividsolutions.jts.geom.Point
+
     class Point < JTSPoint
       include GeoScript::Geom
 
