@@ -14,7 +14,7 @@ if defined? JRUBY_VERSION
   require 'geoscript/datastore'
   require 'geoscript/workspace'
 else
-  warn "GeoScript requires JRuby (http://jruby.org)"
+  abort "GeoScript requires JRuby (http://jruby.org)"
 end
 
 module GeoScript
