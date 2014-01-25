@@ -16,6 +16,14 @@ else
   abort "GeoScript requires JRuby (http://jruby.org)"
 end
 
+java_import org.geotools.factory.Hints
+
+unless java.lang.System.get_property('org.geotools.referencing.forceXY') == 'true'
+  java.lang.System.set_property 'org.geotools.referencing.forceXY', 'true'
+end
+
+Hints.put_system_default Hints::FORCE_LONGITUDE_FIRST_AXIS_ORDER, java.lang.Boolean.new(true)
+
 module GeoScript
   class << self
     def version
