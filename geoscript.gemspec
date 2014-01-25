@@ -17,6 +17,8 @@ Gem::Specification.new do |gem|
   gem.files = Dir['README.md', 'lib/**/*', 'spec/support/**/*']
   gem.require_paths = ['lib']
 
+  gem.add_dependency 'geotools-jars', '>= 8.0'
+
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rspec'
   gem.add_development_dependency 'guard-rspec'

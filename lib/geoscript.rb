@@ -2,8 +2,7 @@ $: << File.expand_path(File.dirname(__FILE__))
 $: << File.expand_path(File.join(File.dirname(__FILE__), 'geoscript'))
 
 if defined? JRUBY_VERSION
-  require 'java'
-  require 'geoscript/jars'
+  require 'geotools-jars'
 
   require 'geoscript/version'
   require 'geoscript/util'
@@ -24,7 +23,7 @@ module GeoScript
     end
 
     def geotools_version
-      GEOTOOLS_VERSION
+      ::Java::OrgGeotoolsFactory::GeoTools.version.to_string
     end
     alias_method :gt_version, :geotools_version
   end
