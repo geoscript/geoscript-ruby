@@ -1,6 +1,7 @@
 module GeoScript
   module Geom
     JTSMultiPolygon = com.vividsolutions.jts.geom.MultiPolygon
+    JTSPolygon = com.vividsolutions.jts.geom.Polygon unless defined?(JTSPolygon)
     
     class MultiPolygon < JTSMultiPolygon
       include GeoScript::Geom
@@ -8,22 +9,23 @@ module GeoScript
       attr_accessor :bounds
 
       def initialize(*polygons)
-        polys = []
+        polys =
+          if polygons.first.kind_of? JTSMultiPolygon
+            mp = polygons.first
 
-        if polygons.first.kind_of? JTSMultiPolygon
-          multi_polygon = polygons.first
-          for i in range(0...multi_polygon.num_geometries)
-            polys << multi_polygon.get_geometry_n(i)
-          end
-        else
-          polygons.each do |polygon|
-            if polygon.kind_of? Java::ComVividsolutionsJtsGeom::Polygon
-              polys << polygon
-            else
-              polys << Polygon.new(*polygon)
+            [].tap do |p|
+              for i in 0...mp.num_geometries
+                p << mp.geometry_n(i)
+              end
+            end
+          else
+            [].tap do |p|
+              polygons.each do |polygon|
+                p << (polygon.kind_of?(JTSPolygon) ? polygon : Polygon.new(*polygon))
+              end
             end
           end
-        end
+
         super(polys.to_java(com.vividsolutions.jts.geom.Polygon), GEOM_FACTORY)
       end
 
