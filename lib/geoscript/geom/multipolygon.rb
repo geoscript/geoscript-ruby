@@ -27,6 +27,18 @@ module GeoScript
         super(polys.to_java(com.vividsolutions.jts.geom.Polygon), GEOM_FACTORY)
       end
 
+      def polygons
+        [].tap do |g|
+          for i in 0...num_geometries do
+            g << geometry_n(i)
+          end
+        end
+      end
+
+      def <<(*new_polygons)
+        MultiPolygon.new *(polygons << new_polygons)
+      end
+
       def buffer(dist)
         Polygon.new super
       end
