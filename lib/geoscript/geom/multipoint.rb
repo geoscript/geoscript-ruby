@@ -8,25 +8,30 @@ module GeoScript
       attr_accessor :bounds
 
       def initialize(*points)
-        feature_points = []
-
-        if points.first.kind_of? JTSMultiPoint
-          mp_geom = points.first
-
-          for i in (0...mp_geom.num_geometries)
-            feature_points << mp_geom.get_geometry_n(i)
-          end
-        else
-          points.each do |point|
-            if point.kind_of? Point
-              feature_points << point
-            else
-              feature_points << Point.new(*point)
+        feature_points =
+          if points.first.kind_of? JTSMultiPoint
+            points.first.points
+          else
+            [].tap do |fp|
+              points.each do |point|
+                fp << (point.kind_of?(Point) ? point : Point.new(*point))
+              end
             end
           end
-        end
 
         super(feature_points.to_java(com.vividsolutions.jts.geom.Point), GEOM_FACTORY)
+      end
+
+      def points
+        [].tap do |geometries|
+          for i in 0...self.num_geometries do
+            geometries << self.geometry_n(i)
+          end
+        end
+      end
+
+      def <<(*new_points)
+        MultiPoint.new *(points << new_points)
       end
 
       def buffer(dist)
