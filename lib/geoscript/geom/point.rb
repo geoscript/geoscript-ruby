@@ -24,6 +24,10 @@ module GeoScript
         super p.coordinate_sequence, GEOM_FACTORY
       end
 
+      def +(other_point)
+        MultiPoint.new self, other_point
+      end
+
       def buffer(dist)
         Polygon.new super
       end
