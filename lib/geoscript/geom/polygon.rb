@@ -32,6 +32,10 @@ module GeoScript
         super(shell, holes, GEOM_FACTORY)
       end
 
+      def +(other_poly)
+        MultiPolygon.new self, other_poly
+      end
+
       def buffer(dist)
         Polygon.new super
       end
